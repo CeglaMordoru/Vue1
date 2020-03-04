@@ -8,18 +8,86 @@
     <body>
         <div id="a">
             <p>{{ przedmiot }}</p>
-            <p v-if='ilosc > 10'>W magazynie: {{ ilosc }}</p>
-            <p v-else-if='ilosc <= 10 && ilosc > 0'>Ostatnie sztuki</p>
+            <div class="zdjecie-produktu">
+                <img v-bind:src="image">
+            </div>
+            <p v-if="ilosc > 10">W magazynie: {{ ilosc }}</p>
+            <p v-else-if="ilosc <= 10 && ilosc > 0">Ostatnie sztuki</p>
             <p v-else>Wyprzedano</p>
+            <ul>
+                <li v-for="wlasciwosc in wlasciwosci"> {{ wlasciwosc }} </li>
+            </ul>
+            <div v-for="variant in variants" :key="variant.variantID">
+                <p @mouseover="updatePrzedmiot(variant.variantColor)">
+                    {{ kolorilosc }}
+                </p>
+            </div>
+                <button v-on:click="addTokoszyk">Kup</button>
+            <div class="koszyk">
+                <p>Koszyk {{ koszyk }}</p>
+            </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script>
+            var nieb = Math.random(nieb)*50+1;
+            var ziel = Math.random(ziel)*20+1;;
+            var czar = Math.random(czar)*120;
+            var pom = Math.random(pom)*30+1;
+            nieb = Math.floor(nieb);
+            ziel = Math.floor(ziel);
+            czar = Math.floor(czar);
+            pom = Math.floor(pom);
+            var sum = nieb+ziel+czar+pom
             var a = new Vue({
                 el: '#a',
                 data: {
-                    przedmiot: 'Autko',
-                    ilosc: '20'
+                    przedmiot: 'Auto',
+                    image: '~/Vue/czarny.jpg',
+                    ilosc: sum,
+                    wlasciwosci: ["Kombi","5-cio drzwiowy","1,2l","40KM"],
+                        variants: [
+                            {
+                                variantID: 1,
+                                variantColor: 'Czarny',
+                                variantImage: './czarny.jpg',
+                                variantIlosc: czar
+                            },
+                            {
+                                variantID: 2,
+                                variantColor: 'Zielony',
+                                variantImage: '~/Vue/zielony.jpg',
+                                variantIlosc: ziel
+                            },
+                            {
+                                variantID: 3,
+                                variantColor: 'Niebieski',
+                                variantImage: '~/Vue/niebieski.jpg',
+                                variantIlosc: nieb
+                            },
+                            {
+                                variantID: 4,
+                                variantColor: 'Pomarańczowy',
+                                variantImage: '~/Vue/pomaranczowy.jpg',
+                                variantIlosc: pom
+                            },
+                        ],
+                        koszyk: 0
+                },
+                computed: {
+                        kolorilosc() {
+                            this.variantColor + ' ilosc: ' + this.variantIlosc;
+                        }
+                },
+                methods: {
+                    addTokoszyk () {
+                        this.koszyk +=1
+                    },
+                    updatePrzedmiot (variantImage) {
+                        this.image = variantImage
+                    }
                 }
+                
+
             })
         </script>
     </body>
