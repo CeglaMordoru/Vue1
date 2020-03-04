@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>VUE</title>
+        <style></style>
+    </head>
+    <body>
+        <div id="a">
+            <p>{{ przedmiot }}</p>
+            <p v-if='ilosc > 10'>W magazynie: {{ ilosc }}</p>
+            <p v-else-if='ilosc <= 10 && ilosc > 0'>Ostatnie sztuki</p>
+            <p v-else>Wyprzedano</p>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            var a = new Vue({
+                el: '#a',
+                data: {
+                    przedmiot: 'Autko',
+                    ilosc: '20'
+                }
+            })
+        </script>
+    </body>
+</html>
