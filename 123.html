@@ -18,8 +18,8 @@
                 <li v-for="wlasciwosc in wlasciwosci"> {{ wlasciwosc }} </li>
             </ul>
             <div v-for="variant in variants" :key="variant.variantID">
-                <p @mouseover="updatePrzedmiot(variant.variantColor)">
-                    {{ kolorilosc }}
+                <p @mouseover="updatePrzedmiot(variant.variantImage)">
+                    {{ variant.variantColor + " ilosc: " + variant.variantIlosc }}
                 </p>
             </div>
                 <button v-on:click="addTokoszyk">Kup</button>
@@ -42,7 +42,7 @@
                 el: '#a',
                 data: {
                     przedmiot: 'Auto',
-                    image: '~/Vue/czarny.jpg',
+                    image: './czarny.jpg',
                     ilosc: sum,
                     wlasciwosci: ["Kombi","5-cio drzwiowy","1,2l","40KM"],
                         variants: [
@@ -55,29 +55,25 @@
                             {
                                 variantID: 2,
                                 variantColor: 'Zielony',
-                                variantImage: '~/Vue/zielony.jpg',
+                                variantImage: './zielony.jpg',
                                 variantIlosc: ziel
                             },
                             {
                                 variantID: 3,
                                 variantColor: 'Niebieski',
-                                variantImage: '~/Vue/niebieski.jpg',
+                                variantImage: './niebieski.jpg',
                                 variantIlosc: nieb
                             },
                             {
                                 variantID: 4,
                                 variantColor: 'Pomarańczowy',
-                                variantImage: '~/Vue/pomaranczowy.jpg',
+                                variantImage: './pomaranczowy.jpg',
                                 variantIlosc: pom
                             },
                         ],
                         koszyk: 0
                 },
-                computed: {
-                        kolorilosc() {
-                            this.variantColor + ' ilosc: ' + this.variantIlosc;
-                        }
-                },
+                
                 methods: {
                     addTokoszyk () {
                         this.koszyk +=1
